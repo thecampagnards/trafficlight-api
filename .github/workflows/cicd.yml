@@ -41,9 +41,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: app
-          path: app
       - name: Give exec perm
-        run: chmod +x app
+        run: |
+          chmod +x app
+          tree
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
