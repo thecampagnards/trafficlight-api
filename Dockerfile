@@ -1,4 +1,4 @@
-FROM scratch
+FROM ubuntu
 
 ENV GIN_MODE=release
 
