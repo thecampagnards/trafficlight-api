@@ -29,11 +29,13 @@ type TrafficLight struct {
 func New() TrafficLight {
 	var tl TrafficLight
 
-	tl.driverExe = "drivers/linux/USBSwitchCMD"
+	tl.driverExe = "drivers/linux/USBswitch"
 	if runtime.GOOS == "windows" {
-		tl.driverExe = "drivers\\windows\\USBSwitchCmd.exe"
+		tl.driverExe = "drivers\\windows\\USBswitch.exe"
 	}
-
+	else if runtime.GOARCH == "arm" {
+		tl.driverExe = "drivers/arm/USBswitch"
+	}
 	log.Printf("Use driverExe: %s", tl.driverExe)
 	return tl
 }
