@@ -1,0 +1,53 @@
+name: CICD
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "1.16"
+      - name: Install dependencies
+        run: |
+          go version
+          go get -u golang.org/x/lint/golint
+      - name: Run vet & lint & test
+        run: |
+          go vet .
+          golint .
+          go test -coverpkg=./... -coverprofile="coverage.out"
+      - name: Run build
+        env:
+          CGO_ENABLED: 0
+          GOOS: linux
+          GOARCH: amd64
+        run: go build -ldflags="-s -w" -a -tags netgo -o app .
+      - name: Save build as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: app
+          retention-days: 5
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: ${{ github.ref == ‘refs/heads/master’ && github.event_name == ‘push’ }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download server artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: app
+          path: app
+      - name: Give exec perm
+        run: chmod +x app
+      - name: Deploy to Docker registry
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: thecampagnards/trafficlight-api
+          tag_with_ref: true
