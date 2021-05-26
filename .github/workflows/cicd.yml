@@ -45,7 +45,7 @@ jobs:
       - name: Give exec perm
         run: chmod +x app
       - name: Deploy to Docker registry
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2.4.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
