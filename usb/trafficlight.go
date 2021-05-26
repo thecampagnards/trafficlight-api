@@ -32,8 +32,7 @@ func New() TrafficLight {
 	tl.driverExe = "drivers/linux/USBswitch"
 	if runtime.GOOS == "windows" {
 		tl.driverExe = "drivers\\windows\\USBswitch.exe"
-	}
-	else if runtime.GOARCH == "arm" {
+	} else if runtime.GOARCH == "arm" {
 		tl.driverExe = "drivers/arm/USBswitch"
 	}
 	log.Printf("Use driverExe: %s", tl.driverExe)
