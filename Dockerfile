@@ -6,6 +6,6 @@ WORKDIR /app
 
 COPY app .
 
-CMD ["app"]
+CMD ["./app"]
 
 EXPOSE 8080
