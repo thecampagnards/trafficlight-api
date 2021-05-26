@@ -42,9 +42,7 @@ jobs:
         with:
           name: app
       - name: Give exec perm
-        run: |
-          chmod +x app
-          tree
+        run: chmod +x app
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
