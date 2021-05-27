@@ -1,6 +1,8 @@
-FROM ubuntu
+FROM alpine
 
 ENV GIN_MODE=release
+
+RUN apk add --no-cache hidapi linux-headers
 
 WORKDIR /app
 
