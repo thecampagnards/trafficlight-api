@@ -47,7 +47,16 @@ func (tl *TrafficLight) TurnOff() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, "O")
 	log.Printf("TurnOff TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 func (tl *TrafficLight) TurnOnRed() error {
@@ -88,8 +97,7 @@ func (tl *TrafficLight) TurnOnYellow() error {
 
 func (tl *TrafficLight) TurnOnGreen() error {
 	if tl.lastCmd != nil {
-		test := tl.lastCmd.Process.Kill()
-		log.Println(test.Error())
+		tl.lastCmd.Process.Kill()
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, "1", "-#", "2")
 	log.Printf("TurnOnGreen TrafficLight: %s", tl.lastCmd.String())
@@ -111,7 +119,16 @@ func (tl *TrafficLight) TurnOffRed() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, "0", "-#", "0")
 	log.Printf("TurnOnRed TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 func (tl *TrafficLight) TurnOffYellow() error {
@@ -120,7 +137,16 @@ func (tl *TrafficLight) TurnOffYellow() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, "0", "-#", "1")
 	log.Printf("TurnOnYellow TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 func (tl *TrafficLight) TurnOffGreen() error {
@@ -129,7 +155,16 @@ func (tl *TrafficLight) TurnOffGreen() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, "0", "-#", "2")
 	log.Printf("TurnOnGreen TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 /* Switch */
@@ -140,7 +175,16 @@ func (tl *TrafficLight) SwitchRed() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, "R")
 	log.Printf("SwitchRed TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 func (tl *TrafficLight) SwitchYellow() error {
@@ -149,7 +193,16 @@ func (tl *TrafficLight) SwitchYellow() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, "Y")
 	log.Printf("SwitchYellow TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 func (tl *TrafficLight) SwitchGreen() error {
@@ -158,7 +211,16 @@ func (tl *TrafficLight) SwitchGreen() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, "G")
 	log.Printf("SwitchGreen TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 /* Blink */
@@ -173,7 +235,16 @@ func (tl *TrafficLight) BlinkGreen() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, tmp...)
 	log.Printf("BlinkGreen TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 func (tl *TrafficLight) BlinkYellow() error {
@@ -186,7 +257,16 @@ func (tl *TrafficLight) BlinkYellow() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, tmp...)
 	log.Printf("BlinkYellow TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
 
 func (tl *TrafficLight) BlinkRed() error {
@@ -199,5 +279,14 @@ func (tl *TrafficLight) BlinkRed() error {
 	}
 	tl.lastCmd = exec.Command(tl.driverExe, tmp...)
 	log.Printf("BlinkRed TrafficLight: %s", tl.lastCmd.String())
-	return tl.lastCmd.Start()
+	err := tl.lastCmd.Start()
+	/* fix idk why turn on return exit code 1 even when it's working
+	$ ./drivers/windows/USBswitchCMD.exe 1 -# 2
+	$ echo $?
+	1
+	*/
+	if err != nil && strings.Contains(err.Error(), "exit code 1") {
+		return nil
+	}
+	return err
 }
