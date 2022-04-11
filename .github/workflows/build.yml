@@ -26,7 +26,7 @@ jobs:
           go test -coverpkg=./... -coverprofile="coverage.out"
           go build -ldflags="-s -w" -a -tags netgo -o app .
       - name: Save build as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: app
           path: app
